@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1051</width>
+    <height>693</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1200</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QWidget" name="startwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1200</width>
+     <height>800</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1200</width>
+     <height>800</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget#startwidget{
+background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.994, y2:0.971591, stop:0.215909 rgba(0, 124, 162, 255), stop:0.59322 rgba(32, 36, 109, 255), stop:0.960452 rgba(61, 86, 138, 255), stop:1 rgba(61, 86, 138, 255));
+}</string>
+   </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>230</y>
+      <width>161</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 28pt &quot;MV Boli&quot;; color: rgb(255, 255, 255);
+
+</string>
+    </property>
+    <property name="text">
+     <string>Wellcome</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="new_ac">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>520</y>
+      <width>221</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:7px;
+background-color:rgb(191, 191, 191);
+font: 16pt &quot;MV Boli&quot;;color:rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>Create new account</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="guest">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>520</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:7px;
+background-color:rgb(191, 191, 191);
+font: 16pt &quot;MV Boli&quot;;color:rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>guest</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="have_ac">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>450</y>
+      <width>341</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="acceptDrops">
+     <bool>true</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:7px;
+background-color:rgb(191, 191, 191);
+font: 16pt &quot;MV Boli&quot;;color:rgb(0, 0, 0);
+</string>
+    </property>
+    <property name="text">
+     <string>I have an account, Let's go!</string>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

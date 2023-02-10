@@ -1,0 +1,274 @@
+
+
+'''
+MAUTHD=[id for id in range(60,68)]
+class dlibMAUTHDe():
+    def __init__(self):
+        self.detector=dlib.get_frontal_face_detector()
+        self.predictor=dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+        self.MAR="undifined"
+
+
+    def MAUTHMesh(self,img,):    
+        img=cv.resize(img,(600,500))
+        gray=cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+        rects=self.detector(gray)
+        if len(rects)!=0:
+            for rect in rects:
+                x1=rect.left()
+                y1=rect.top()
+                x2=rect.right()
+                y2=rect.bottom()
+
+                shape=self.predictor(gray,rect)
+
+                
+                self.MAR=(hp(shape.part(61).x - shape.part(67).x, shape.part(61).y - shape.part(67).y)+hp(shape.part(63).x - shape.part(65).x, shape.part(63).y - shape.part(65).y))/(hp(shape.part(60).x - shape.part(64).x, shape.part(60).y - shape.part(64).y)*2)
+                for n in MAUTHD:
+                    x=shape.part(n).x
+                    y=shape.part(n).y
+                    cv.circle(img,(x,y),1,(0,0,255),-1)
+        else:
+            self.MAR="undifined"
+        return img
+
+  '''
+
+
+  
+'''
+LEFT_EYED =[36,37,38,39,40,41]
+RIGHT_EYED=[42,43,44,45,46,47]
+
+class dlibEyeDe():
+    def __init__(self):
+        self.detector=dlib.get_frontal_face_detector()
+        self.predictor=dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+        self.EAR='undifined'
+    def eyeMesh(self,img,draw=True):    
+        img=cv.resize(img,(600,500))
+        gray=cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+        rects=self.detector(gray)
+        # print(rects,type(rects))
+        
+        if len(rects)!=0:
+            for rect in rects:
+                x1=rect.left()
+                y1=rect.top()
+                x2=rect.right()
+                y2=rect.bottom()
+
+                shape=self.predictor(gray,rect)
+                
+                self.EAR=(hp(shape.part(37).x - shape.part(41).x, shape.part(37).y - shape.part(41).y)+hp(shape.part(38).x - shape.part(40).x, shape.part(38).y - shape.part(40).y))/(hp(shape.part(36).x - shape.part(39).x, shape.part(36).y - shape.part(39).y)*2)
+                self.EAR+=(hp(shape.part(43).x - shape.part(47).x, shape.part(43).y - shape.part(44).y)+hp(shape.part(46).x - shape.part(44).x, shape.part(46).y - shape.part(44).y))/(hp(shape.part(42).x - shape.part(45).x, shape.part(42).y - shape.part(45).y)*2)
+                self.EAR/=2
+                # cv.circle(img,(shape.part(39).x,shape.part(39).y),1,(0,255,0),-1)
+                if draw:
+                    for n in RIGHT_EYED+LEFT_EYED:
+                        x=shape.part(n).x
+                        y=shape.part(n).y
+                        cv.circle(img,(x,y),1,(0,0,255),-1)
+                break
+        else:
+            self.EAR="undifined"
+        return img
+'''
+
+
+
+'''
+def headp(text):
+    if text=="Looking Right":
+        return 0.53
+    elif text=="Looking Left":
+        return 0.25
+    elif text=="Looking Up":
+        return 0.17
+    elif text=="Looking Down":
+        return 0.35
+    elif text=="Forward":
+        return 0.27
+'''
+
+
+
+'''
+The main part of project .this script use module to 
+detect drowsiness and alarming to driver.
+
+
+author:Ali Salehi.D
+date:2022
+'''
+import cv2 as cv
+import numpy as np
+import mauthSleepD
+import eyeSleepD
+import headpose
+import time
+import alarm
+import personfacerecogniser
+import personeyeration
+import HE
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog, QApplication, QWidget
+import sys
+
+
+
+
+
+
+
+
+
+# driver=personfacerecogniser.driver()
+# eye=eyeSleepD.mediaPipeEyeDe()#object of eyeSleepD module 
+# mauth=mauthSleepD.mediaPipeMAUTHDe()#object of mauthSleepD module 
+# head=headpose.HeadPose()#object of headpose module
+# alr=alarm.Alarm()
+
+
+
+
+
+# pos=True
+# poseTime=[]
+# Stime=[]
+# Ltime=[]
+# eyeTreshold=0.31
+# timeTreshold=0.7
+# Martreshold=0.25
+# yawNumber=0
+# lookTreshold=2
+# eyeClose=0
+# eyeClosebool=True
+# eyeCloseTreash=3
+# yaw=[0,0]
+# situationTresh=1
+# eyeTresholds=None
+
+
+
+
+#reading the capture from camera
+# capture=cv.VideoCapture(0)
+
+
+# while True:
+#     isOk,frame=capture.read()
+#     frame=HE.histogram_equalization(frame)
+#     Stime.append(time.time())
+#     if Stime[-1]-Stime[0]>1:
+        
+#         eyeTresholds=driver.recognis(frame)
+#         if eyeTresholds!=None:
+#             eyeTreshold=float(eyeTresholds)+0.02
+#         break
+    
+
+# capture.release()
+
+
+# e=personeyeration.driveridentity()
+# eyeTreshold=float(e.newperson('hasti'))
+
+def sleepfinder(EarTreshold):
+    # driver=personfacerecogniser.driver()
+    eye=eyeSleepD.mediaPipeEyeDe()#object of eyeSleepD module 
+    mauth=mauthSleepD.mediaPipeMAUTHDe()#object of mauthSleepD module 
+    head=headpose.HeadPose()#object of headpose module
+    alr=alarm.Alarm()
+    pos=True
+    poseTime=[]
+    Stime=[]
+    Ltime=[]
+    eyeTreshold=0.31
+    timeTreshold=0.7
+    Martreshold=0.25
+    yawNumber=0
+    lookTreshold=2
+    eyeClose=0
+    eyeClosebool=True
+    eyeCloseTreash=3
+    yaw=[0,0]
+    situationTresh=1
+    eyeTresholds=None
+    Ptime=[]
+    # capture=cv.VideoCapture(0)
+    while True:
+        # isOk,frame=capture.read()
+        # if isOk:
+
+            
+            #calling methods
+            frame=HE.histogram_equalization(frame)
+            img1=eye.eyeMesh(frame.copy())
+            img2=mauth.MAUTHMesh(frame.copy())
+            posDirection=head.hpos(frame.copy())
+            
+            if eyeClose>=eyeCloseTreash:
+                alr.vioceAlarm("./alarmvoiceandmusics/Sleepy.mp3")
+                eyeClose=0
+            #todo
+            
+            if posDirection=="Forward":
+                Ear=eye.EAR
+                Mar=mauth.MAR
+                #checking for Yawing
+                if Mar!="undifined":
+                    yaw[1]=Mar
+                    if  yaw[1]>Martreshold and yaw[0]<Martreshold:
+                        yawNumber+=1
+                    yaw[0]=Mar
+                    
+                if Ear!="undifined":
+                    #checking the eye aspect ratio and time of closness of eyes
+                    if  Ear<eyeTreshold:
+                        Stime.append(time.time())
+                        if Stime[-1]-Stime[0]>timeTreshold:
+                            alr.vioceAlarm("./alarmvoiceandmusics/alarm.mp3")
+                            
+                            
+                            #this pease cont the number of eyeclose period
+                            if eyeClosebool:
+                                eyeClose+=1
+                            cv.rectangle(frame,(0,0),(frame.shape[1]-1,frame.shape[0]-1),(0,0,255),1)
+                            eyeClosebool=False
+                    
+                    if Ear>eyeTreshold:
+                        eyeClosebool=True
+                        Stime=[]                    
+                        
+
+                Ptime=[]
+                    
+            elif posDirection=="Looking Right" or posDirection=="Looking Left" or posDirection=="Looking Up" or posDirection=="Looking Down":
+                Ptime.append(time.time())
+                if Ptime[-1]-Ptime[0]>lookTreshold:
+                    alr.vioceAlarm("./alarmvoiceandmusics/LookForward.mp3")
+
+            if Ear=="undifined" or posDirection=="undifined":
+                poseTime.append(time.time())
+                if poseTime[-1]-poseTime[0]>situationTresh:
+                    alr.vioceAlarm("./alarmvoiceandmusics/situation.mp3")
+                    poseTime=[]
+                    
+                
+
+            
+        #     cv.imshow('frame',frame)
+        # if cv.waitKey(1) & 0xFF==ord('q'):
+        #     break
+
+    cv.destroyAllWindows()
+    capture.release()
+
+
+
+
+
+
+
+
